@@ -16,7 +16,7 @@ const projects = [
   { name: "Synthetic Audience Lab", type: "AI testing", text: "Run headline, landing page, ad, email, and offer tests against AI-simulated audiences. See objections and segment feedback, then validate with real traffic." },
   { name: "TCG Pulse", type: "Monitoring", text: "Scheduled retailer checks, source-health tracking, real availability transitions, deduplicated alerts, and Telegram digests." },
   { name: "Page Optimizer", type: "Analytics + SEO", text: "Use Search Console, GA4, and page audits to build a prioritized improvement workflow with evidence and human review." },
-  { name: "Camille Desk", type: "AI + voice sales", text: "Read a prospect’s website, give the caller useful context and conversation starters, then organize call outcomes and follow-up." },
+  { name: "Camille Desk", type: "AI-assisted outreach", text: "Read a prospect’s website, surface people and conversation starters for a human caller, then organize call outcomes and follow-up." },
   { name: "Transportation directories", type: "Lead generation", text: "Build focused sites and reusable systems that capture, attribute, route, and follow up on service inquiries." }
 ];
 
