@@ -37,7 +37,7 @@ function QuoteBotDemo() {
 function AudienceDemo() {
   const [first, setFirst] = useState("Need a party bus for your next big event?");
   const [second, setSecond] = useState("Get the right ride for your group and event.");
-  const [ran, setRan] = useState(false);
+  const [ran, setRan] = useState(true);
   const [audience, setAudience] = useState("Party bus shoppers");
 
   const review = (text: string) => {
@@ -62,7 +62,7 @@ function AudienceDemo() {
 }
 
 function PulseDemo() {
-  const [state, setState] = useState<"normal" | "changed" | "source-error">("normal");
+  const [state, setState] = useState<"normal" | "changed" | "source-error">("changed");
   return <div className="product-window">
     <div className="window-top"><div className="window-dots"><i /><i /><i /></div><span>TCG PULSE · SOURCE MONITOR</span><span className="safe-label">DEMO DATA</span></div>
     <div className="pulse-demo"><div className="pulse-toolbar"><div><span className="pulse-light" /><strong>Retailer monitor</strong><small>Scheduled checks · quiet unless something matters</small></div><label>Simulate<select value={state} onChange={(event) => setState(event.target.value as typeof state)}><option value="normal">No change</option><option value="changed">Availability changed</option><option value="source-error">Source blocked</option></select></label></div>
@@ -75,7 +75,7 @@ function PulseDemo() {
 }
 
 function OptimizerDemo() {
-  const [ran, setRan] = useState(false);
+  const [ran, setRan] = useState(true);
   const [page, setPage] = useState("/services/party-bus");
   return <div className="product-window">
     <div className="window-top"><div className="window-dots"><i /><i /><i /></div><span>PAGE OPTIMIZER · REVIEW QUEUE</span><span className="safe-label">SAMPLE URL</span></div>
