@@ -36,17 +36,21 @@ function QuoteBotDemo() {
 
 function AudienceDemo() {
   const [first, setFirst] = useState("Need a party bus for your next big event?");
-  const [second, setSecond] = useState("Get the right ride for your group and event.");
+  const [second, setSecond] = useState("Check Phoenix party bus availability and get a clear quote fast.");
   const [ran, setRan] = useState(true);
   const [audience, setAudience] = useState("Party bus shoppers");
 
   const review = (text: string) => {
     const words = text.trim().split(/\s+/).filter(Boolean).length;
     const hasOffer = /(book|quote|ride|bus|group|price|event|service|home|inspection|treatment)/i.test(text);
+    const hasNextStep = /(book|quote|get|check|call|compare|schedule|availability|reserve|request)/i.test(text);
+    const hasConcreteBenefit = /(price|pricing|clear|fast|quick|available|availability|same.day|upfront)/i.test(text);
     if (words < 5) return "A shopper may not know what the business offers yet. Add the service or outcome.";
     if (!hasOffer) return "The benefit is still broad. Name the service or the result the customer wants.";
     if (words > 13) return "This may take too long to scan. Try a shorter, more direct promise.";
-    return "Clear starting point. Test whether adding a specific customer benefit makes it more compelling.";
+    if (!hasNextStep) return "Names the service, but leaves the next move unclear. Tell the shopper how to get a quote or check availability.";
+    if (!hasConcreteBenefit) return "The next step is clear. Add a concrete benefit—such as upfront pricing or a faster response—to make the offer more specific.";
+    return "Names the service, next step, and a concrete benefit. A stronger candidate to test—but only live results can confirm it.";
   };
 
   return <div className="product-window">
