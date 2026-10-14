@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./repo-surfaces.css";
 
 export const metadata: Metadata = {
   title: "Leadwave Systems Lab | Built for business outcomes",
