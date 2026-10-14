@@ -206,12 +206,12 @@ export default function Home() {
     </section>
 
     <section className="leadwave-case" id="leadwave">
-      <div className="case-heading"><div><span className="eyebrow">REAL PROJECT · LEADWAVE</span><h2>I replaced Zoho and built tools to handle leads and follow-up.</h2></div><p>Quote chats, after-hours calls, sales research, and next steps—custom-built for how the team works.</p></div>
+      <div className="case-heading"><div><span className="eyebrow">A REAL PROJECT I BUILT</span><h2>I replaced Zoho with tools to handle customer requests.</h2></div><p>Zoho was where the team kept customer details. I built a quote chat, a call-back list, and a phone assistant for after-hours calls.</p></div>
       <div className="case-grid">
-        <div className="case-before"><span className="story-label">THE PROBLEM</span><h3>Staff were juggling tools and chasing details.</h3><p>It was harder to see who needed a reply, what to say, and what the next step was.</p><div className="case-tags"><span>Old CRM</span><span>Separate chat</span><span>Manual follow-up</span></div></div>
-        <div className="case-after"><span className="story-label">WHAT I BUILT</span><h3>Tools that help the team get back to people.</h3><ul><li><b>Quote chat</b><span>Gets the trip date, group size, and pickup city.</span></li><li><b>Sales dashboard</b><span>Shows reps who to contact and what to do next.</span></li><li><b>After-hours call assistant</b><span>Takes the caller’s details so a person can follow up.</span></li></ul><a href="https://github.com/partybusexperts/Chatbot-Awesome" target="_blank" rel="noreferrer">See the project I built <span>↗</span></a></div>
+        <div className="case-before"><span className="story-label">BEFORE</span><h3>Customer requests were spread out.</h3><p>Staff had to check different places and remember who still needed a call back.</p></div>
+        <div className="case-after"><span className="story-label">WHAT I BUILT</span><h3>Three tools for the everyday work.</h3><ul><li><b>Website quote chat</b><span>Asks for the trip date, group size, and pickup city.</span></li><li><b>Call-back list</b><span>Shows sales staff who to contact next and what they need.</span></li><li><b>After-hours phone assistant</b><span>Takes the caller’s details so staff can call back.</span></li></ul><a href="https://github.com/partybusexperts/Chatbot-Awesome" target="_blank" rel="noreferrer">See the code I built <span>↗</span></a></div>
       </div>
-      <p className="case-truth">The live sales app is private. The example shows the tools I built, not customer records or promised sales results.</p>
+      <p className="case-truth">The live sales app is private, so this page explains what I built without showing customer information.</p>
     </section>
 
     <section className="services-section" id="services">
