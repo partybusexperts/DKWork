@@ -171,6 +171,11 @@ a{color:inherit}
 .project-type{color:var(--quiet);font:8px var(--mono);text-transform:uppercase;letter-spacing:.06em}
 .project-card h3{font-size:14px;letter-spacing:-.03em;margin:18px 0 7px}
 .project-card p{color:var(--muted);font-size:10px;line-height:1.65;margin:0}
+.project-card h3{margin-bottom:15px}
+.project-label,.project-build>span{display:block;color:var(--yellow);font:8px var(--mono);letter-spacing:.08em}
+.project-card p.project-problem{margin:6px 0 14px;color:#e3e1d8;font-size:11px;font-weight:700;line-height:1.55}
+.project-build{border-top:1px solid var(--line);padding-top:12px}
+.project-build p{margin-top:6px}
 .closing{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:43px 0 48px;border-top:1px solid var(--line)}
 .closing h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.06em;margin:10px 0 9px}
 .closing p{max-width:650px;color:var(--muted);font-size:11px;line-height:1.75;margin:0}
