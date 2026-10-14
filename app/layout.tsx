@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "./repo-surfaces.css";
 
 export const metadata: Metadata = {
-  title: "Leadwave Systems Lab | Built for business outcomes",
-  description: "Interactive demos of AI systems, dashboards, automation, directories, and lead-generation platforms built by Leadwave."
+  title: "Dan Kolbaba | AI and Custom Software",
+  description: "I build practical AI systems for lead qualification, audience testing, monitoring, sales workflows, and business analytics. Explore real projects and interactive demos."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
