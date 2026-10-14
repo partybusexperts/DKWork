@@ -1,24 +1,7 @@
 "use client";
 
-import { useState } from "react";
-
-type DemoId = "quotebot" | "audience" | "pulse" | "optimizer";
-
-const demos: { id: DemoId; label: string; title: string; source: string; intro: string }[] = [
-  { id: "quotebot", label: "Capture leads", title: "Turn a chat into a useful quote request", source: "QuoteBot + LiveChat", intro: "I built this because reps shouldn't have to chase basic trip details across chat and CRM screens. It gathers the request while keeping pricing and availability with people." },
-  { id: "audience", label: "Test your message", title: "Find the message worth testing", source: "Synthetic Audience Lab", intro: "I built this to screen ideas before spending on real traffic. AI-simulated feedback can surface likely objections; only a real experiment measures conversions." },
-  { id: "pulse", label: "Catch issues", title: "Catch meaningful changes automatically", source: "TCG Pulse", intro: "I built this because a broken source should never look like a real restock. It separates page failures from confirmed product changes and filters alert noise." },
-  { id: "optimizer", label: "Improve pages", title: "Turn search data into the next action", source: "Page Optimizer", intro: "I built this because SEO advice needs page-level evidence. It joins Search Console, GA4, and deterministic audits, then leaves changes for a person to approve." }
-];
-
-const projects = [
-  { name: "QuoteBot + LiveChat", type: "CRM + quote workflow", problem: "Zoho and separate quote/chat tools had sales reps bouncing between screens and repeating work.", story: "I built a connected workflow to replace that patchwork: structured intake, catalog-controlled quote rules, conversation context, and a human handoff for pricing or booking decisions." },
-  { name: "Synthetic Audience Lab", type: "AI message testing", problem: "If a headline misses the mark, finding out after you buy traffic gets expensive.", story: "I built a lab to compare headlines, offers, ads, emails, and pages with AI-simulated audience segments—surfacing likely objections before a real test. The simulation is directional, not conversion data." },
-  { name: "TCG Pulse", type: "Monitoring + alerts", problem: "Manual checks miss changes, while noisy alerts teach people to ignore the notifications.", story: "I built a scheduled monitor that tracks source health, detects known availability changes, and batches useful alerts. A blocked page is reported as an error—not a fake restock." },
-  { name: "Page Optimizer", type: "SEO + analytics", problem: "SEO recommendations without page evidence are guesswork, and unreviewed AI edits are risky.", story: "I built a page-level workflow using Search Console, GA4, and deterministic audits to identify the next review action. A person checks the evidence and approves changes; it doesn't publish for you." },
-  { name: "Camille Desk", type: "AI-assisted outreach", problem: "Callers waste prep time researching each prospect and start with too little context.", story: "I built a desk that turns a prospect's website into likely contacts, related vendors, and three concise talking points—then organizes call outcomes and follow-ups. A human makes the call using a consistent script." },
-  { name: "Transportation directories", type: "Multi-market lead generation", problem: "A one-city site has a ceiling, and rebuilding every market from scratch wastes effort.", story: "I built reusable directory systems to launch focused sites across markets, capture and attribute inquiries, and route them to operators. Selling qualified surplus leads is a revenue option when partner demand supports it—not revenue I’m claiming here." }
-];
+import { useEffect, useMemo, useState } from "react";
+import { statusLabel, workGroups, workItems, type WorkItem, type WorkStatus } from "./catalog-data";
 
 function QuoteBotDemo() {
   const [eventType, setEventType] = useState("");
@@ -103,29 +86,132 @@ function OptimizerDemo() {
   </div>;
 }
 
+const statusClass: Record<WorkStatus, string> = {
+  confirmed: "confirmed",
+  listed: "listed",
+  source: "source",
+  paused: "paused",
+  prototype: "prototype",
+  prelaunch: "prototype",
+  development: "prototype",
+  empty: "paused",
+};
+
+function DemoPanel({ demo }: { demo: WorkItem["demo"] }) {
+  if (!demo) return null;
+  return <section className="selected-demo" aria-label="Interactive project walkthrough">
+    <div className="selected-demo-heading"><span className="eyebrow">TRY A SAFE WALKTHROUGH</span><p>Sample interaction only. No customer information is used and nothing is sent.</p></div>
+    {demo === "quotebot" && <QuoteBotDemo />}
+    {demo === "audience" && <AudienceDemo />}
+    {demo === "pulse" && <PulseDemo />}
+    {demo === "optimizer" && <OptimizerDemo />}
+  </section>;
+}
+
+function WorkDetail({ item }: { item: WorkItem }) {
+  const verified = item.status === "confirmed" && item.domain;
+  const listed = item.status === "listed" && item.domain;
+  const paused = item.status === "paused";
+
+  return <article className="work-detail" key={item.id}>
+    <div className="detail-topline"><span>{item.group}</span><span className={`status-badge ${statusClass[item.status]}`}><i />{statusLabel[item.status]}</span></div>
+    <h2>{item.title}</h2>
+    {item.domain && <div className="detail-domain">{item.domain}</div>}
+    <p className="detail-summary">{item.what}</p>
+    <div className="detail-actions">
+      {verified && <a className="yellow-button" href={`https://${item.domain}`} target="_blank" rel="noreferrer">Open public site <span>↗</span></a>}
+      {listed && <a className="secondary-link" href={`https://${item.domain}`} target="_blank" rel="noreferrer">Open listed domain <span>↗</span></a>}
+      {item.repo && <a className="secondary-link" href={item.repo} target="_blank" rel="noreferrer">View GitHub source <span>↗</span></a>}
+      {item.preview && !paused && <a className="secondary-link subdued-link" href={item.preview} target="_blank" rel="noreferrer">Repo-linked Vercel URL <span>↗</span><small>Deployment status not verified</small></a>}
+      {paused && <span className="paused-note">The linked Vercel deployment returned “Deployment is paused by the owner” when checked. The source repo is still available.</span>}
+    </div>
+    <div className="detail-story">
+      <section className="story-card"><span className="story-label">THE PROBLEM I SAW</span><p>{item.why}</p></section>
+      <section className="story-card built-card"><span className="story-label">WHAT I BUILT</span><p>{item.built}</p></section>
+    </div>
+    {item.demo && <DemoPanel demo={item.demo} />}
+    <div className="detail-footer"><span>Clear scope · visible progress · human approval for consequential actions</span><a href="mailto:hello@leadwave.dev">Have a problem like this? Let’s talk ↗</a></div>
+  </article>;
+}
+
 export default function Home() {
-  const [active, setActive] = useState<DemoId>("quotebot");
-  const selected = demos.find((demo) => demo.id === active) ?? demos[0];
+  const defaultItem = workItems.find((item) => item.id === "repo-chatbot-awesome") ?? workItems[0];
+  const [selected, setSelected] = useState(defaultItem);
+  const [search, setSearch] = useState("");
+  const [openGroups, setOpenGroups] = useState<string[]>([defaultItem.group]);
 
-  const tryDemo = () => document.getElementById("demo-lab")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("work");
+    const initial = workItems.find((item) => item.id === requested);
+    if (initial) {
+      setSelected(initial);
+      setOpenGroups((groups) => groups.includes(initial.group) ? groups : [...groups, initial.group]);
+    }
+  }, []);
 
-  return <main className="portfolio">
-    <header className="site-nav"><a className="wordmark" href="#top"><span>DK</span><strong>DAN KOLBABA</strong></a><nav><a href="#work">Work I built</a><a href="mailto:hello@leadwave.dev" className="nav-contact">Talk about your project <span>↗</span></a></nav></header>
+  const normalizedSearch = search.trim().toLowerCase();
+  const groupedItems = useMemo(() => workGroups.map((group) => ({
+    group,
+    items: workItems.filter((item) => item.group === group && (!normalizedSearch || `${item.title} ${item.domain ?? ""} ${item.what}`.toLowerCase().includes(normalizedSearch))),
+  })).filter((entry) => entry.items.length > 0), [normalizedSearch]);
 
-    <section className="hero" id="top"><div className="hero-copy"><span className="eyebrow">AI · CUSTOM SOFTWARE · AUTOMATION</span><h1>Stop letting good leads<br /><em>go cold.</em></h1><p>I built these for problems I know firsthand: quote requests missing key details, sales work scattered across tools, and important changes buried in noise. Each demo shows the system I made to fix one.</p><div className="hero-actions"><button className="yellow-button" onClick={tryDemo}>Try a system <span>↓</span></button><a href="mailto:hello@leadwave.dev">Tell me what you want to improve <span>↗</span></a></div><div className="hero-promise"><span /> Clear updates. Real progress. No mystery handoff.</div></div><div className="hero-side"><div className="hero-terminal"><div className="terminal-head"><span><i /><i /><i /></span><small>QUOTEBOT · SAMPLE</small></div><div className="terminal-body quote-preview"><span className="preview-kicker">NEW CUSTOMER MESSAGE</span><div className="preview-customer">“I need a party bus for 20 friends.”</div><div className="preview-assistant"><span className="assistant-mark">AI</span><div><small>QuoteBot</small><p>Sure—what date and pickup city should we start with?</p></div></div><div className="preview-handoff"><span>LEAD INTAKE</span><strong>Ready for sales follow-up</strong><small>Pricing and availability stay with your team.</small></div></div></div><div className="hero-caption">Sample workflow · no live customer data.</div></div></section>
+  const selectItem = (item: WorkItem) => {
+    setSelected(item);
+    setOpenGroups((groups) => groups.includes(item.group) ? groups : [...groups, item.group]);
+    const url = new URL(window.location.href);
+    url.searchParams.set("work", item.id);
+    window.history.replaceState(null, "", url);
+  };
 
-    <section className="demo-section" id="demo-lab"><div className="section-heading"><div><span className="eyebrow">TRY WHAT I BUILT</span><h2>Pick a business problem.</h2></div><p>These are real products I built, shown with safe sample interactions. Click a problem to see how I approached it.</p></div>
-      <div className="demo-tabs" role="tablist" aria-label="Interactive system demos">{demos.map((demo) => <button key={demo.id} role="tab" aria-selected={active === demo.id} className={active === demo.id ? "demo-tab active" : "demo-tab"} onClick={() => setActive(demo.id)}><span>{demo.label}</span><b>↗</b></button>)}</div>
-      <div className="demo-intro"><div><span className="demo-source">BUILT PROJECT · {selected.source.toUpperCase()}</span><h3>{selected.title}</h3></div><p>{selected.intro}</p></div>
-      {active === "quotebot" && <QuoteBotDemo />}
-      {active === "audience" && <AudienceDemo />}
-      {active === "pulse" && <PulseDemo />}
-      {active === "optimizer" && <OptimizerDemo />}
+  const repoCount = workItems.filter((item) => item.id.startsWith("repo-")).length;
+  const confirmedCount = workItems.filter((item) => item.status === "confirmed").length;
+  const groupCount = (group: string) => workItems.filter((item) => item.group === group).length;
+
+  return <main className="portfolio catalog-page">
+    <header className="site-nav catalog-nav">
+      <a className="wordmark" href="/" aria-label="Dan Kolbaba home"><span>DK</span><strong>DAN KOLBABA</strong></a>
+      <div className="catalog-nav-right"><span>SOFTWARE · AUTOMATION · OPERATING SYSTEMS</span><a href="mailto:hello@leadwave.dev" className="nav-contact">Talk about your project <b>↗</b></a></div>
+    </header>
+
+    <section className="catalog-intro">
+      <div><span className="eyebrow">BUILT FROM REAL BUSINESS PROBLEMS</span><h1>Here’s what I’ve built.</h1><p>Pick a project on the left. I’ll show you the problem I set out to fix, what I made, and what’s actually live.</p></div>
+      <div className="inventory-counts" aria-label="Portfolio inventory counts">
+        <div><strong>{repoCount}</strong><span>GitHub repos</span></div>
+        <div><strong>19</strong><span>pest domains listed</span></div>
+        <div><strong>{confirmedCount}</strong><span>public pages confirmed</span></div>
+      </div>
     </section>
 
-    <section className="work-section" id="work"><div className="section-heading"><div><span className="eyebrow">WHY I BUILT THEM</span><h2>Every project started with a problem.</h2></div><p>Here’s the problem I saw—and the system I built to solve it.</p></div><div className="project-grid">{projects.map((project, index) => <article className="project-card" key={project.name}><div className="project-card-top"><span className="project-index">0{index + 1}</span><span className="project-type">{project.type}</span></div><h3>{project.name}</h3><span className="project-label">THE PROBLEM</span><p className="project-problem">{project.problem}</p><div className="project-build"><span>WHAT I BUILT AND WHY</span><p>{project.story}</p></div></article>)}</div></section>
+    <div className="catalog-shell">
+      <aside className="catalog-sidebar" aria-label="Portfolio project list">
+        <div className="sidebar-heading"><div><span className="sidebar-eyebrow">BROWSE MY WORK</span><strong>Projects & sites</strong></div><span className="sidebar-total">{workItems.length}</span></div>
+        <label className="catalog-search"><span>⌕</span><input aria-label="Search projects and sites" placeholder="Search everything" value={search} onChange={(event) => setSearch(event.target.value)} /><kbd>ALL</kbd></label>
+        <div className="catalog-groups">
+          {groupedItems.map(({ group, items }) => {
+            const expanded = Boolean(normalizedSearch) || openGroups.includes(group);
+            return <section className="catalog-group" key={group}>
+              <button className="group-toggle" type="button" aria-expanded={expanded} onClick={() => setOpenGroups((groups) => expanded ? groups.filter((value) => value !== group) : [...groups, group])}>
+                <span>{group}</span><span className="group-meta">{groupCount(group)} <b>{expanded ? "−" : "+"}</b></span>
+              </button>
+              {expanded && <div className="group-items" id={`group-${group.replace(/\W/g, "-")}`}>
+                {items.map((item) => <button key={item.id} type="button" className={`catalog-item ${selected.id === item.id ? "selected" : ""}`} aria-current={selected.id === item.id ? "page" : undefined} onClick={() => selectItem(item)}>
+                  <span className={`item-indicator ${statusClass[item.status]}`} />
+                  <span className="item-text"><strong>{item.title}</strong><small>{item.domain ?? (item.repo ? item.repo.split("/").pop() : "Project notes")}</small></span>
+                  {selected.id === item.id && <span className="item-arrow">↗</span>}
+                </button>)}
+              </div>}
+            </section>;
+          })}
+          {groupedItems.length === 0 && <p className="no-results">Nothing matches that search. Try a company name, tool, or domain.</p>}
+        </div>
+        <div className="sidebar-legend"><span><i className="confirmed" /> public page checked</span><span><i className="source" /> source / status unknown</span></div>
+      </aside>
 
-    <section className="closing"><div><span className="eyebrow">GOT A PROCESS THAT IS COSTING YOU TIME?</span><h2>Let’s make the next step easier.</h2><p>Tell me what your team struggles with. I’ll ask the questions early, explain tradeoffs, and show you what’s happening as the build moves forward.</p></div><a className="yellow-button contact-cta" href="mailto:hello@leadwave.dev">Start a conversation <span>↗</span></a></section>
-    <footer className="site-footer"><span>Dan Kolbaba · AI and custom software</span><span>© 2026</span></footer>
+      <section className="catalog-content" aria-live="polite">
+        <div className="content-caption"><span>PROJECT FILE</span><span>{String(workItems.findIndex((item) => item.id === selected.id) + 1).padStart(2, "0")} / {workItems.length}</span></div>
+        <WorkDetail item={selected} />
+      </section>
+    </div>
+    <footer className="site-footer catalog-footer"><span>Dan Kolbaba · AI and custom software</span><span>Public status is labeled separately from repository existence.</span><span>© 2026</span></footer>
   </main>;
 }
