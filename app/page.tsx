@@ -110,7 +110,7 @@ function DemoPanel({ demo }: { demo: WorkItem["demo"] }) {
 
 function WorkDetail({ item }: { item: WorkItem }) {
   const verified = item.status === "confirmed" && item.domain;
-  const listed = item.status === "listed" && item.domain;
+  const listed = item.status !== "confirmed" && item.status !== "paused" && item.status !== "prelaunch" && item.status !== "empty" && item.domain;
   const paused = item.status === "paused";
 
   return <article className="work-detail" key={item.id}>
@@ -120,7 +120,7 @@ function WorkDetail({ item }: { item: WorkItem }) {
     <p className="detail-summary">{item.what}</p>
     <div className="detail-actions">
       {verified && <a className="yellow-button" href={`https://${item.domain}`} target="_blank" rel="noreferrer">Open public site <span>↗</span></a>}
-      {listed && <a className="secondary-link" href={`https://${item.domain}`} target="_blank" rel="noreferrer">Open listed domain <span>↗</span></a>}
+      {listed && <a className="secondary-link" href={`https://${item.domain}`} target="_blank" rel="noreferrer">Check domain listed in source <span>↗</span></a>}
       {item.repo && <a className="secondary-link" href={item.repo} target="_blank" rel="noreferrer">View GitHub source <span>↗</span></a>}
       {item.preview && !paused && <a className="secondary-link subdued-link" href={item.preview} target="_blank" rel="noreferrer">Repo-linked Vercel URL <span>↗</span><small>Deployment status not verified</small></a>}
       {paused && <span className="paused-note">The linked Vercel deployment returned “Deployment is paused by the owner” when checked. The source repo is still available.</span>}
