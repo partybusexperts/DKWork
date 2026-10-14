@@ -185,57 +185,61 @@ export default function Home() {
   return <main className="portfolio sales-page">
     <header className="site-nav sales-nav">
       <a className="wordmark" href="/" aria-label="Dan Kolbaba home"><span>DK</span><strong>DAN KOLBABA</strong></a>
-      <nav aria-label="Main navigation"><a href="#systems">What I can build</a><a href="#portfolio">More work</a><a className="nav-contact" href="mailto:hello@leadwave.dev">Tell me what you need <span>↗</span></a></nav>
+      <nav aria-label="Main navigation"><a href="#services">What I build</a><a href="#leadwave">Proof</a><a href="#portfolio">More work</a><a className="nav-contact" href="#contact">Tell me the problem <span>↗</span></a></nav>
     </header>
 
-    <section className="sales-hero">
+    <section className="sales-hero sales-hero-focused">
       <div className="sales-copy">
-        <span className="eyebrow">I BUILD TOOLS THAT HELP YOU WIN AND KEEP CUSTOMERS</span>
-        <h1>Reply faster. Miss less. <em>Grow smarter.</em></h1>
-        <p>I build quote chatbots, follow-up tools, simple sales dashboards, and alerts that help your team get back to customers and catch problems sooner. I explain what I’m building in plain English and keep you updated as we go.</p>
-        <div className="sales-proof-points"><span><b>01</b> Get back to customers sooner</span><span><b>02</b> Improve your message before buying ads</span><span><b>03</b> Know when something needs attention</span></div>
-        <div className="sales-actions"><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Let%E2%80%99s%20fix%20a%20business%20workflow">Tell me what’s slowing you down <span>↗</span></a><a href="#systems">See what I’ve built <span>↓</span></a></div>
-        <p className="sales-note">You stay in charge of prices, bookings, and important customer promises.</p>
+        <span className="eyebrow">CUSTOM SOFTWARE FOR SERVICE BUSINESSES & SALES TEAMS</span>
+        <h1>Stop paying for software your team <em>works around.</em></h1>
+        <p>I build practical sales systems that capture leads, organize follow-up, and show your team what to do next—using AI where it helps, not just because it’s trendy.</p>
+        <div className="sales-proof-points"><span><b>01</b> Replace scattered steps with one clear workflow</span><span><b>02</b> Collect useful details from web chats and calls</span><span><b>03</b> See what needs a person’s attention next</span></div>
+        <div className="sales-actions"><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Help%20me%20fix%20a%20business%20workflow">Tell me what keeps getting missed <span>↗</span></a><a href="#leadwave">See the Leadwave build <span>↓</span></a></div>
+        <p className="sales-note">No technical brief needed. You stay in control of pricing, bookings, and important customer promises.</p>
       </div>
-      <div className="sales-hero-demo" aria-label="Interactive QuoteBot demonstration">
-        <div className="sales-demo-intro"><span>TRY A QUOTE CHATBOT</span><strong>Click through. This is only a sample.</strong></div>
-        <QuoteBotDemo />
-        <p className="sales-demo-caption">This sample shows how a chatbot can ask the usual questions and prepare the details for your team.</p>
+      <div className="leadflow-card" aria-label="Leadwave sales workflow I built">
+        <div className="leadflow-top"><div><span className="eyebrow">REAL BUILD · LEADWAVE</span><h2>From new inquiry to clear next step.</h2></div><span className="leadflow-mark">DK</span></div>
+        <div className="leadflow-before"><span>BEFORE</span><div><b>Zoho CRM</b><i>+</i><b>Separate chat</b><i>+</i><b>Manual follow-up</b></div></div>
+        <div className="leadflow-list">
+          <div><span className="leadflow-step">01</span><span><b>Capture</b><small>A quote request or call comes in</small></span><span className="leadflow-tool">CHAT · VOICE</span></div>
+          <div><span className="leadflow-step">02</span><span><b>Keep the details</b><small>Trip needs and conversation stay with the lead</small></span><span className="leadflow-tool">LEAD RECORD</span></div>
+          <div><span className="leadflow-step">03</span><span><b>Know what happens next</b><small>Call prep, follow-up, and team handoff</small></span><span className="leadflow-tool">SALES TOOLS</span></div>
+          <div><span className="leadflow-step">04</span><span><b>Keep a human in control</b><small>Staff confirm the price and booking</small></span><span className="leadflow-tool">APPROVAL</span></div>
+        </div>
+        <div className="leadflow-bottom"><span>QUOTE BOT</span><span>LIVE CHAT</span><span>VOICE INTAKE</span><span>FOLLOW-UP</span></div>
+        <p>Workflow from a real system I built. This diagram contains no customer data.</p>
       </div>
     </section>
 
     <section className="pain-strip" aria-label="Business problems addressed">
-      <span>Paying for tools your team avoids?</span><span>Customers waiting too long for a reply?</span><span>Finding out too late when something broke?</span><span>Too many reports, no clear next step?</span>
+      <span>Paying for tools people avoid?</span><span>Leads waiting for follow-up?</span><span>Copying the same info between apps?</span><span>Finding problems too late?</span>
     </section>
 
-    <section className="systems-section" id="systems">
-      <div className="sales-section-heading"><div><span className="eyebrow">REAL PROJECTS, PLAIN EXPLANATIONS</span><h2>Here’s what I built—and what it helps with.</h2></div><p>Try the samples below. They show how the tools work, but they are not connected to your business and will not send anything.</p></div>
-      <div className="system-grid">
-        <article className="system-card">
-          <div className="system-card-heading"><span className="system-number">01 · TEST YOUR MESSAGE</span><h3>See which message is clearer before you spend on ads.</h3><p>I built a tool to compare different headlines and spot confusing wording. A real test with visitors tells you which one brings in more customers.</p></div>
-          <AudienceDemo />
-          <small className="truth-note">This sample gives writing tips. It does not run a live test or predict sales.</small>
-        </article>
-        <article className="system-card">
-          <div className="system-card-heading"><span className="system-number">02 · GET A USEFUL ALERT</span><h3>Know when something changes—or stops working.</h3><p>I built a tool that checks for changes and tells you when it finds one. If a page breaks, it reports the problem instead of sending a false alert.</p></div>
-          <PulseDemo />
-          <small className="truth-note">Choose an example above to see the difference between a real change and a failed check.</small>
-        </article>
-        <article className="system-card system-card-wide">
-          <div className="system-card-heading"><span className="system-number">03 · KNOW WHAT TO FIX</span><h3>Find out why a website page isn’t bringing in inquiries.</h3><p>I built a page checker that helps answer three simple questions: do people find the page, can they request a quote, and is the next step clear?</p></div>
-          <OptimizerDemo />
-          <small className="truth-note">This is sample information, not a check of your website. A person reviews any changes before they go live.</small>
-        </article>
+    <section className="leadwave-case" id="leadwave">
+      <div className="case-heading"><div><span className="eyebrow">FLAGSHIP PROJECT · LEADWAVE</span><h2>I replaced Zoho CRM—and built the sales workflow around how Leadwave works.</h2></div><p>Instead of asking the team to work around a generic setup, I built connected tools for handling leads, preparing outreach, and keeping follow-up visible.</p></div>
+      <div className="case-grid">
+        <div className="case-before"><span className="story-label">THE PROBLEM</span><h3>Too many handoffs. Too much checking.</h3><p>Lead details, chats, call prep, and next steps were spread across separate tools. It was harder to see who needed a reply and what should happen next.</p><div className="case-tags"><span>Zoho CRM</span><span>Separate chat</span><span>Manual tracking</span></div></div>
+        <div className="case-after"><span className="story-label">WHAT I BUILT</span><h3>One sales workflow, shaped around their process.</h3><ul><li><b>QuoteBot + live chat</b><span>Collect inquiry details and prepare the lead for staff.</span></li><li><b>Lead and follow-up tools</b><span>Keep the conversation, owner, and next action together.</span></li><li><b>Outreach and call prep</b><span>Help reps research businesses and plan who to contact.</span></li><li><b>Vera voice intake</b><span>Collect after-hours call details and hand off to a person.</span></li></ul><a href="https://github.com/partybusexperts/Chatbot-Awesome" target="_blank" rel="noreferrer">Explore the project code <span>↗</span></a></div>
+      </div>
+      <p className="case-truth">The live sales app is private, so I’m showing the workflow—not customer records. No made-up revenue or conversion numbers: this is what I built.</p>
+    </section>
+
+    <section className="services-section" id="services">
+      <div className="sales-section-heading"><div><span className="eyebrow">WHAT I CAN BUILD FOR YOUR BUSINESS</span><h2>Pick the headache. I’ll build the tool around it.</h2></div><p>Start with one part of your business that costs time, loses leads, or keeps getting missed.</p></div>
+      <div className="service-grid">
+        <article><span className="service-icon">01</span><h3>Leads that get handled</h3><p>Quote bots, website chat, voice intake, and lead tracking that give your team the details they need to follow up.</p><small>Built: QuoteBot · LiveChat · Vera</small></article>
+        <article><span className="service-icon">02</span><h3>Sales follow-up that stays visible</h3><p>Call prep, prospect research, outreach tracking, reminders, and dashboards—so reps know who to contact and why.</p><small>Built: Leadwave · Camille Desk</small></article>
+        <article><span className="service-icon">03</span><h3>Alerts before small issues grow</h3><p>Checks that flag meaningful changes or failures, and dashboards that point to the next thing worth looking at.</p><small>Built: Pokémon alerts · Console Analytics</small></article>
+        <article><span className="service-icon">04</span><h3>Websites that bring in the right inquiries</h3><p>Local service sites and directory systems designed around what a customer is searching for and how they ask for help.</p><small>Built: transportation · pest-control sites</small></article>
+        <article><span className="service-icon">05</span><h3>Website tests based on real results</h3><p>Plan A/B tests around quote requests or bookings, then measure real visitor behavior. AI can suggest what to test; traffic data decides what wins.</p><small>Built: experiment planning and review tools · live tests need site setup</small></article>
+        <article><span className="service-icon">06</span><h3>AI that takes the boring first pass</h3><p>Sort, summarize, research, and draft—then send exceptions and important decisions to a person for review.</p><small>AI supports the workflow. You stay in charge.</small></article>
       </div>
     </section>
 
-    <section className="business-work">
-      <div className="sales-section-heading"><div><span className="eyebrow">BUILT TO FIX REAL BUSINESS HEADACHES</span><h2>Less busywork. Better follow-up.</h2></div><p>I make tools that help your team know who to contact, what to say, and what needs attention next.</p></div>
-      <div className="business-work-grid">
-        <article><span>LEADWAVE · SALES TOOLS</span><h3>Replace Zoho and scattered sales tools.</h3><p>I replaced their Zoho setup with quote chatbots, a live chat tool, a headline tester, and a sales dashboard for outreach. The goal: less copying information between tools and more time talking with potential customers.</p></article>
-        <article><span>CAMILLE DESK · CALL PREP</span><h3>Know who you’re calling and what to say.</h3><p>I built a tool that looks up a business, suggests people to contact, gives the salesperson a few useful talking points, and keeps track of follow-up.</p></article>
-        <article><span>LOCAL SERVICE WEBSITES</span><h3>Build a website for each kind of customer.</h3><p>I built websites for transportation and pest-control services. Each one can focus on a specific place or problem and give people a clear way to ask for help. The list below shows which sites have been checked.</p></article>
-      </div>
+    <section className="work-process" id="how-it-works">
+      <div className="process-heading"><span className="eyebrow">NO GUESSING. NO VANISHING DEVELOPER.</span><h2>You’ll know what’s happening before it becomes a problem.</h2><p>Good software matters. So does knowing what you’re paying for and what happens next.</p></div>
+      <div className="process-steps"><article><b>01</b><h3>Show me the bottleneck</h3><p>Tell me what takes too long, gets forgotten, or frustrates your team. You do not need a technical spec.</p></article><article><b>02</b><h3>Agree on the plan</h3><p>I explain the simplest workable approach, what’s included, and what could affect the budget or timeline.</p></article><article><b>03</b><h3>See progress as it happens</h3><p>You get clear updates: what’s done, what’s next, and where I need your decision.</p></article><article><b>04</b><h3>Test before trusting it</h3><p>We check the real workflow together. AI does not silently make pricing, booking, or customer promises.</p></article></div>
+      <div className="sales-faq"><details><summary>Do I need to know exactly what I want?</summary><p>No. Bring the problem or a messy process. I’ll help turn it into a clear plan before we build.</p></details><details><summary>Do I have to replace my current software?</summary><p>No. We start with what you already use. Replacing a tool only makes sense if it solves a real problem.</p></details><details><summary>Can you guarantee more sales?</summary><p>I won’t invent a number. We can agree on what to measure—like response time, completed inquiries, or booked jobs—and use your real data to judge the result.</p></details></div>
     </section>
 
     <section className="portfolio-index" id="portfolio">
@@ -279,7 +283,7 @@ export default function Home() {
       </section>
       </div>
     </section>
-    <section className="sales-closing" id="contact"><div><span className="eyebrow">TIRED OF DOING IT BY HAND?</span><h2>Let’s fix what’s slowing your team down.</h2><p>Tell me what takes too much time, what keeps getting missed, or what you wish your software could do. I’ll explain a clear next step.</p></div><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Let%E2%80%99s%20talk%20about%20a%20workflow">Talk about your problem <span>↗</span></a></section>
+    <section className="sales-closing" id="contact"><div><span className="eyebrow">YOU DON’T NEED A PERFECT PLAN TO START</span><h2>Tell me what keeps getting missed.</h2><p>I’ll help you sort out whether it needs better software, a simpler process, or no new tool at all—and explain the next step in plain English.</p></div><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Help%20me%20fix%20a%20business%20workflow">Talk through the problem <span>↗</span></a></section>
     <footer className="site-footer sales-footer"><span>Dan Kolbaba · Business tools and websites</span><span>I’ll tell you what’s live and what’s only a sample.</span><span>© 2026</span></footer>
   </main>;
 }
