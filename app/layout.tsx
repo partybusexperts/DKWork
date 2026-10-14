@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dan Kolbaba | Stop Losing Leads to Slow Follow-Up",
-  description: "Custom quote bots, voice intake, follow-up tools, alerts, dashboards, and websites for service businesses. See the sales workflow I built for Leadwave."
+  title: "AI Phone & Chat Tools for Service Businesses | Dan Kolbaba",
+  description: "AI phone and chat assistants collect quote details and show your team who to call back. Try the QuoteBot I built and see real projects."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

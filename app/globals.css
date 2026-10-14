@@ -409,3 +409,11 @@ a{color:inherit}
 .portfolio-expand .portfolio-index{padding:36px 20px 26px;border-top:0}
 .sales-closing{margin-top:53px}
 @media(max-width:700px){.service-grid{grid-template-columns:1fr}.service-grid article{min-height:0}.service-disclosure{font-size:8px}.portfolio-expand>summary{grid-template-columns:1fr auto;padding:16px;gap:9px}.portfolio-expand>summary>span,.portfolio-expand>summary>strong,.portfolio-expand>summary>small{grid-column:1}.portfolio-expand>summary>span{font-size:8px}.portfolio-expand>summary>strong{font-size:13px}.portfolio-expand>summary>strong b{margin-left:6px}.portfolio-expand>summary>small{font-size:9px}.portfolio-expand .portfolio-index{padding:24px 0 14px}.sales-closing{margin-top:37px}}
+.sales-hero-demo .quote-layout{grid-template-columns:minmax(0,1.35fr) minmax(160px,.75fr);gap:16px;padding:17px}
+.sales-hero-demo .quote-chat{min-height:255px}
+.sales-hero-demo .assistant-line p{font-size:12px}
+.sales-hero-demo .quick-choices button{font-size:10px;padding:9px 11px}
+.hero-quote-result{align-self:center;padding:10px 0 10px 16px;border-left:1px solid var(--line)}
+.hero-quote-result strong{color:#f0eee4;font-size:11px}
+.hero-quote-result p{margin:9px 0 0;color:var(--muted);font-size:10px;line-height:1.7}
+@media(max-width:700px){.sales-hero-demo .quote-layout{display:flex;flex-direction:column;gap:0;padding:14px}.sales-hero-demo .quote-chat{min-height:0}.hero-quote-result{align-self:stretch;margin-top:9px;padding:13px 0 2px;border-left:0;border-top:1px solid var(--line)}.hero-quote-result p{margin-top:5px}.sales-hero-focused .sales-copy h1{font-size:clamp(40px,10.4vw,57px)}}

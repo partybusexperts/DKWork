@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { statusLabel, workGroups, workItems, type WorkItem, type WorkStatus } from "./catalog-data";
 
-function QuoteBotDemo() {
+function QuoteBotDemo({ compact = false }: { compact?: boolean }) {
   const [eventType, setEventType] = useState("");
   const [guests, setGuests] = useState("");
   const [date, setDate] = useState("");
@@ -12,9 +12,9 @@ function QuoteBotDemo() {
 
   const reset = () => { setEventType(""); setGuests(""); setDate(""); setCity(""); setComplete(false); };
 
-  return <div className="product-window">
+  return <div className={`product-window${compact ? " hero-quote-window" : ""}`}>
     <div className="window-top"><div className="window-dots"><i /><i /><i /></div><span>QUOTE CHATBOT · SAMPLE</span><span className="safe-label">SAMPLE</span></div>
-    <div className="quote-layout">
+    <div className={`quote-layout${compact ? " hero-quote-layout" : ""}`}>
       <div className="quote-chat">
         <div className="assistant-line"><span className="assistant-mark">AI</span><div><small>QuoteBot</small><p>I can help collect the details for your quote. What are you planning?</p></div></div>
         {!eventType && <div className="quick-choices">{["Wedding", "Birthday", "Corporate event", "Something else"].map((choice) => <button key={choice} onClick={() => setEventType(choice)}>{choice}<span>↗</span></button>)}</div>}
@@ -29,7 +29,7 @@ function QuoteBotDemo() {
         {complete && <div className="handoff-card"><span className="handoff-check">✓</span><div><strong>Example request is ready</strong><p>{eventType} · {guests} guests · {date} · {city}</p><small>This is only a sample. It will not send a real request.</small></div></div>}
         {(eventType || complete) && <button className="reset-link" onClick={reset}>Start over</button>}
       </div>
-      <aside className="behind-card"><span className="section-kicker">HOW THIS HELPS</span><ul><li><b>01</b> Asks customers the usual questions</li><li><b>02</b> Puts their trip details in one place</li><li><b>03</b> Lets your team handle prices and bookings</li></ul><span className="built-from">From my QuoteBot project</span></aside>
+      {compact ? <aside className="hero-quote-result"><strong>What your team gets</strong><p>Event, date, group size, and pickup city. Your team confirms the price and availability.</p></aside> : <aside className="behind-card"><span className="section-kicker">HOW THIS HELPS</span><ul><li><b>01</b> Asks customers the usual questions</li><li><b>02</b> Puts their trip details in one place</li><li><b>03</b> Lets your team handle prices and bookings</li></ul><span className="built-from">From my QuoteBot project</span></aside>}
     </div>
   </div>;
 }
@@ -187,53 +187,42 @@ export default function Home() {
   return <main className="portfolio sales-page">
     <header className="site-nav sales-nav">
       <a className="wordmark" href="/" aria-label="Dan Kolbaba home"><span>DK</span><strong>DAN KOLBABA</strong></a>
-      <nav aria-label="Main navigation"><a href="#services">What I fix</a><a href="#leadwave">Leadwave example</a><a href="#portfolio" onClick={() => { if (portfolioRef.current) portfolioRef.current.open = true; }}>All projects</a><a className="nav-contact" href="#contact">Get help <span>↗</span></a></nav>
+      <nav aria-label="Main navigation"><a href="#leadwave">My work</a><a className="nav-contact" href="#contact">Get help <span>↗</span></a></nav>
     </header>
 
     <section className="sales-hero sales-hero-focused">
       <div className="sales-copy">
-        <span className="eyebrow">FOR SERVICE BUSINESSES LOSING TIME OR LEADS</span>
-        <h1>Stop letting good leads <em>go cold.</em></h1>
-        <p>I build quote bots, follow-up tools and alerts that help your team answer sooner and see exactly who needs attention—without forcing you into another generic CRM.</p>
-        <div className="sales-proof-points"><span><b>01</b> Catch quote requests and after-hours calls</span><span><b>02</b> Make the next follow-up hard to miss</span><span><b>03</b> Flag problems before they become bigger ones</span></div>
-        <div className="sales-actions"><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Help%20me%20stop%20losing%20leads">Fix my lead follow-up <span>↗</span></a><a href="#leadwave">See what I built for Leadwave <span>↓</span></a></div>
-        <p className="sales-note">No technical brief needed. Tell me what gets missed; I’ll explain the simplest useful fix and keep you informed as I build.</p>
+        <span className="eyebrow">FOR BUSINESSES THAT MISS CALLS OR QUOTE REQUESTS</span>
+        <h1>Too busy to answer every call?</h1>
+        <p>I build AI phone and chat assistants that gather quote details and show your team who to call back—so callers aren’t left waiting.</p>
+        <div className="sales-actions"><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Help%20me%20stop%20missing%20leads">Help me stop missing leads <span>↗</span></a></div>
+        <p className="sales-note">No technical plan needed. I’ll explain it in plain English and keep you updated.</p>
       </div>
-      <div className="leadflow-card" aria-label="Leadwave sales workflow I built">
-        <div className="leadflow-top"><div><span className="eyebrow">A REAL SYSTEM I BUILT</span><h2>New lead in. Clear next step out.</h2></div><span className="leadflow-mark">DK</span></div>
-        <div className="leadflow-before"><span>THE OLD WAY</span><div><b>Missed calls</b><i>+</i><b>Scattered details</b><i>+</i><b>Forgotten follow-up</b></div></div>
-        <div className="leadflow-list">
-          <div><span className="leadflow-step">01</span><span><b>Answer</b><small>Chat and voice collect the request</small></span><span className="leadflow-tool">QUOTE BOT · VERA</span></div>
-          <div><span className="leadflow-step">02</span><span><b>Keep it together</b><small>Details, owner, and next action stay visible</small></span><span className="leadflow-tool">LEAD TOOLS</span></div>
-          <div><span className="leadflow-step">03</span><span><b>Follow through</b><small>Staff review it, reply, and confirm the booking</small></span><span className="leadflow-tool">HUMAN APPROVAL</span></div>
-        </div>
-        <div className="leadflow-bottom"><span>QUOTE BOT</span><span>LIVE CHAT</span><span>VOICE INTAKE</span><span>SALES DASHBOARD</span></div>
-        <p>Built for Leadwave. Example workflow only—no customer data or made-up results.</p>
+      <div className="sales-hero-demo">
+        <div className="sales-demo-intro"><span>TRY A REAL TOOL I BUILT</span><strong>A customer needs a party bus</strong></div>
+        <QuoteBotDemo compact />
+        <p className="sales-demo-caption">Tap an answer to see it gather a real quote’s details. This sample won’t send a request.</p>
       </div>
-    </section>
-
-    <section className="pain-strip" aria-label="Business problems addressed">
-      <span>Calls answered too late?</span><span>Staff forget who to call back?</span><span>Paying for a CRM nobody updates?</span><span>Finding problems after customers do?</span>
     </section>
 
     <section className="leadwave-case" id="leadwave">
-      <div className="case-heading"><div><span className="eyebrow">REAL PROJECT · LEADWAVE</span><h2>I replaced Zoho CRM with tools built around the sales work.</h2></div><p>The goal was simple: stop bouncing between tools to answer leads, prepare outreach, and remember the next step.</p></div>
+      <div className="case-heading"><div><span className="eyebrow">REAL PROJECT · LEADWAVE</span><h2>I replaced Zoho and built tools to handle leads and follow-up.</h2></div><p>Quote chats, after-hours calls, sales research, and next steps—custom-built for how the team works.</p></div>
       <div className="case-grid">
-        <div className="case-before"><span className="story-label">THE PROBLEM</span><h3>Leads and sales work spread across tools.</h3><p>It took extra effort to find the conversation, prepare the next call, and know who needed a reply.</p><div className="case-tags"><span>Zoho CRM</span><span>Separate chat</span><span>Manual follow-up</span></div></div>
-        <div className="case-after"><span className="story-label">WHAT I BUILT</span><h3>One connected set of tools.</h3><ul><li><b>QuoteBot + LiveChat</b><span>Collect quote details and put the inquiry in front of staff.</span></li><li><b>Sales and outreach dashboard</b><span>Help reps research who to contact and keep next steps visible.</span></li><li><b>Vera voice bot</b><span>Take after-hours details and pass the call back to a person.</span></li></ul><a href="https://github.com/partybusexperts/Chatbot-Awesome" target="_blank" rel="noreferrer">See the project behind it <span>↗</span></a></div>
+        <div className="case-before"><span className="story-label">THE PROBLEM</span><h3>Staff were juggling tools and chasing details.</h3><p>It was harder to see who needed a reply, what to say, and what the next step was.</p><div className="case-tags"><span>Old CRM</span><span>Separate chat</span><span>Manual follow-up</span></div></div>
+        <div className="case-after"><span className="story-label">WHAT I BUILT</span><h3>Tools that help the team get back to people.</h3><ul><li><b>Quote chat</b><span>Gets the trip date, group size, and pickup city.</span></li><li><b>Sales dashboard</b><span>Shows reps who to contact and what to do next.</span></li><li><b>After-hours call assistant</b><span>Takes the caller’s details so a person can follow up.</span></li></ul><a href="https://github.com/partybusexperts/Chatbot-Awesome" target="_blank" rel="noreferrer">See the project I built <span>↗</span></a></div>
       </div>
       <p className="case-truth">The live sales app is private. The example shows the tools I built, not customer records or promised sales results.</p>
     </section>
 
     <section className="services-section" id="services">
-      <div className="sales-section-heading"><div><span className="eyebrow">WHAT I CAN FIX FOR YOU</span><h2>Choose the problem. I’ll build around it.</h2></div><p>Start with one frustrating step. You don’t need to know the technical answer.</p></div>
+      <div className="sales-section-heading"><div><span className="eyebrow">WHAT I CAN BUILD FOR YOU</span><h2>Tell me what keeps getting missed.</h2></div><p>I’ll work out the simplest fix with you and explain it in plain English.</p></div>
       <div className="service-grid">
-        <article><span className="service-icon">01</span><h3>Stop leads going cold</h3><p>Quote bots, website chat, and voice intake that collect what customers need and put it in front of your team.</p><small>Built: QuoteBot · LiveChat · Vera</small></article>
-        <article><span className="service-icon">02</span><h3>Know who needs a follow-up</h3><p>Replace messy CRM work with a sales view that shows the lead, the context, and the next action.</p><small>Built: Leadwave · sales dashboards</small></article>
-        <article><span className="service-icon">03</span><h3>Catch changes before they cost you</h3><p>Alerts, dashboards, and website checks that point out unusual activity, broken steps, or a change worth investigating.</p><small>Built: monitoring · analytics · A/B test tools*</small></article>
-        <article className="service-secondary"><span className="service-icon">04</span><h3>Need a website or directory?</h3><p>I also build service-business websites, local directories, and lead-generation systems.</p><small>Built: transportation · pest-control websites</small></article>
+        <article><span className="service-icon">01</span><h3>Answer calls and quote requests</h3><p>A phone or website assistant collects what the customer needs and sends the details to your team.</p><small>Built: QuoteBot · LiveChat · Vera</small></article>
+        <article><span className="service-icon">02</span><h3>Know who to call back</h3><p>A simple sales screen shows who contacted you, what they need, and what to do next.</p><small>Built: Leadwave · sales dashboards</small></article>
+        <article><span className="service-icon">03</span><h3>Get a warning when something changes</h3><p>Alerts can tell you when a page breaks, activity suddenly changes, or something needs a closer look.</p><small>Built: alerts · analytics · website checks</small></article>
+        <article className="service-secondary"><span className="service-icon">04</span><h3>Get a website that brings in customers</h3><p>Service websites and directories that help customers find you and ask for a quote.</p><small>Built: transportation · pest-control websites</small></article>
       </div>
-      <p className="service-disclosure">*A/B test tools help plan and review experiments. A real live test needs traffic-splitting and conversion tracking set up on the website.</p>
+      <p className="service-disclosure">I can help choose what to test on a website. To know which version gets more inquiries, the website must show the options to real visitors and track the results.</p>
     </section>
     <details className="portfolio-expand" id="portfolio" ref={portfolioRef}>
       <summary><span>Want to see everything else?</span><strong>Browse all {workItems.length} projects, websites & experiments <b>＋</b></strong><small>Live websites, software, dashboards, directories, and works in progress—with their status clearly marked.</small></summary>
