@@ -167,22 +167,73 @@ export default function Home() {
   const confirmedCount = workItems.filter((item) => item.status === "confirmed").length;
   const groupCount = (group: string) => workItems.filter((item) => item.group === group).length;
 
-  return <main className="portfolio catalog-page">
-    <header className="site-nav catalog-nav">
+  return <main className="portfolio sales-page">
+    <header className="site-nav sales-nav">
       <a className="wordmark" href="/" aria-label="Dan Kolbaba home"><span>DK</span><strong>DAN KOLBABA</strong></a>
-      <div className="catalog-nav-right"><span>SOFTWARE · AUTOMATION · OPERATING SYSTEMS</span><a href="mailto:hello@leadwave.dev" className="nav-contact">Talk about your project <b>↗</b></a></div>
+      <nav aria-label="Main navigation"><a href="#systems">What I build</a><a href="#portfolio">More work</a><a className="nav-contact" href="mailto:hello@leadwave.dev">Talk about your project <span>↗</span></a></nav>
     </header>
 
-    <section className="catalog-intro">
-      <div><span className="eyebrow">BUILT FROM REAL BUSINESS PROBLEMS</span><h1>Here’s what I’ve built.</h1><p>Pick a project on the left. I’ll show you the problem I set out to fix, what I made, and what’s actually live.</p></div>
-      <div className="inventory-counts" aria-label="Portfolio inventory counts">
-        <div><strong>{repoCount}</strong><span>GitHub repos</span></div>
-        <div><strong>19</strong><span>pest domains listed</span></div>
-        <div><strong>{confirmedCount}</strong><span>public pages confirmed</span></div>
+    <section className="sales-hero">
+      <div className="sales-copy">
+        <span className="eyebrow">CUSTOM SOFTWARE FOR LEADS, SALES & OPERATIONS</span>
+        <h1>Stop losing good leads in the <em>gaps.</em></h1>
+        <p>I build the quote flows, AI tools, dashboards, and alerts that help a small team follow up faster and see what needs attention—without stitching together another pile of disconnected software.</p>
+        <div className="sales-proof-points"><span><b>01</b> Capture and qualify every inquiry</span><span><b>02</b> Find objections before ad spend</span><span><b>03</b> Catch important changes automatically</span></div>
+        <div className="sales-actions"><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Let%E2%80%99s%20fix%20a%20business%20workflow">Tell me what’s not working <span>↗</span></a><a href="#systems">See the systems I built <span>↓</span></a></div>
+        <p className="sales-note">Built for real workflows. Human approval stays in control of pricing, availability, and customer commitments.</p>
+      </div>
+      <div className="sales-hero-demo" aria-label="Interactive QuoteBot demonstration">
+        <div className="sales-demo-intro"><span>TRY THE QUOTEBOT FLOW</span><strong>Click through. Nothing gets sent.</strong></div>
+        <QuoteBotDemo />
+        <p className="sales-demo-caption">A real project workflow: collect trip details, apply clear quote rules, then hand off decisions that need a person.</p>
       </div>
     </section>
 
-    <div className="catalog-shell">
+    <section className="pain-strip" aria-label="Business problems addressed">
+      <span>PAYING FOR TOOLS THAT DON’T TALK?</span><span>LEADS WAITING TOO LONG?</span><span>IMPORTANT CHANGES GETTING MISSED?</span><span>NO IDEA WHAT TO FIX FIRST?</span>
+    </section>
+
+    <section className="systems-section" id="systems">
+      <div className="sales-section-heading"><div><span className="eyebrow">THE WORK, NOT A SKILLS LIST</span><h2>See what the software actually does.</h2></div><p>These are interactive previews of systems I built to solve specific problems. Try them right here—no account, sales call, or download required.</p></div>
+      <div className="system-grid">
+        <article className="system-card">
+          <div className="system-card-heading"><span className="system-number">01 · TEST BEFORE YOU SPEND</span><h3>Find the objection hiding in your headline.</h3><p>I built an A/B testing workflow that compares messages and surfaces likely questions before a campaign goes live.</p></div>
+          <AudienceDemo />
+          <small className="truth-note">This quick preview uses simple local checks. AI-simulated feedback is directional; only a live controlled test measures conversion.</small>
+        </article>
+        <article className="system-card">
+          <div className="system-card-heading"><span className="system-number">02 · GET ALERTS THAT MEAN SOMETHING</span><h3>Know when something really changed.</h3><p>I built monitors that track state, catch source failures, and suppress duplicate noise instead of crying wolf.</p></div>
+          <PulseDemo />
+          <small className="truth-note">Try the selector: a blocked page becomes a source error—not a fake availability alert.</small>
+        </article>
+        <article className="system-card system-card-wide">
+          <div className="system-card-heading"><span className="system-number">03 · TURN REPORTS INTO A NEXT STEP</span><h3>See what to fix on the page—not another pile of charts.</h3><p>I built a page-review queue combining search, analytics, and deterministic checks so a person can verify the evidence before making a change.</p></div>
+          <OptimizerDemo />
+          <small className="truth-note">Uses sample inputs. Recommendations stay reviewable; the system doesn’t publish edits on its own.</small>
+        </article>
+      </div>
+    </section>
+
+    <section className="business-work">
+      <div className="sales-section-heading"><div><span className="eyebrow">BUILT AROUND HOW BUSINESSES RUN</span><h2>Not generic AI. Useful systems.</h2></div><p>I build for the messy work between “a customer is interested” and “the team knows what to do next.”</p></div>
+      <div className="business-work-grid">
+        <article><span>LEADWAVE · SALES OPERATIONS</span><h3>Less tool juggling. Better-prepared conversations.</h3><p>I replaced Zoho-heavy manual workflows with custom quote bots, chat, A/B testing, and outreach dashboards—so the team could qualify inquiries and prepare sales follow-up in one connected workflow.</p></article>
+        <article><span>CAMILLE DESK · PROSPECTING</span><h3>Walk into the call knowing something useful.</h3><p>I built a prospect-research desk that studies a business website, suggests relevant contacts and vendors, prepares concise talking points, and tracks follow-up. A person makes the call.</p></article>
+        <article><span>DIRECTORIES · MULTI-MARKET LEADS</span><h3>One operating system. Many local markets.</h3><p>I built reusable service-directory foundations for transportation and home services, designed around local discovery, inquiry capture, and source attribution—not a claim that every listed site is live.</p></article>
+      </div>
+    </section>
+
+    <section className="portfolio-index" id="portfolio">
+      <div className="catalog-intro">
+        <div><span className="eyebrow">THE REST OF THE BUILD LOG</span><h2>More of what I’ve built.</h2><p>Browse the full repo and site inventory. Public status is labeled separately from code or a domain simply being listed.</p></div>
+        <div className="inventory-counts" aria-label="Portfolio inventory counts">
+          <div><strong>{repoCount}</strong><span>GitHub projects</span></div>
+          <div><strong>19</strong><span>pest sites listed</span></div>
+          <div><strong>{confirmedCount}</strong><span>public pages confirmed</span></div>
+        </div>
+      </div>
+
+      <div className="catalog-shell">
       <aside className="catalog-sidebar" aria-label="Portfolio project list">
         <div className="sidebar-heading"><div><span className="sidebar-eyebrow">BROWSE MY WORK</span><strong>Projects & sites</strong></div><span className="sidebar-total">{workItems.length}</span></div>
         <label className="catalog-search"><span>⌕</span><input aria-label="Search projects and sites" placeholder="Search everything" value={search} onChange={(event) => setSearch(event.target.value)} /><kbd>ALL</kbd></label>
@@ -211,7 +262,9 @@ export default function Home() {
         <div className="content-caption"><span>PROJECT FILE</span><span>{String(workItems.findIndex((item) => item.id === selected.id) + 1).padStart(2, "0")} / {workItems.length}</span></div>
         <WorkDetail item={selected} />
       </section>
-    </div>
-    <footer className="site-footer catalog-footer"><span>Dan Kolbaba · AI and custom software</span><span>Public status is labeled separately from repository existence.</span><span>© 2026</span></footer>
+      </div>
+    </section>
+    <section className="sales-closing" id="contact"><div><span className="eyebrow">GOT A LEAK IN YOUR WORKFLOW?</span><h2>Let’s fix the part costing you time, leads, or focus.</h2><p>Tell me what your team is doing manually, what keeps getting missed, or what you wish your software did. I’ll help turn it into a clear build plan.</p></div><a className="yellow-button" href="mailto:hello@leadwave.dev?subject=Let%E2%80%99s%20talk%20about%20a%20workflow">Start a conversation <span>↗</span></a></section>
+    <footer className="site-footer sales-footer"><span>Dan Kolbaba · AI, software & automation</span><span>Project status is labeled honestly. No inflated performance claims.</span><span>© 2026</span></footer>
   </main>;
 }
